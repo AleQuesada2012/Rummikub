@@ -1,11 +1,9 @@
-import java.util.*;
-
 public class Jugador {
 
     private String Nombre;
     private int puntos;
-    private ArrayList<Ficha> fichasEnMano;
-    private boolean MiTurno;
+    private  Soporte fichasEnMano;
+    private boolean puedoempezar;
     private boolean ganador;
 
     public String getNombre() {
@@ -24,12 +22,8 @@ public class Jugador {
         this.puntos = puntos;
     }
 
-    public ArrayList<Ficha> getFichasEnMano() {
-        return fichasEnMano;
-    }
-
-    public void setFichasEnMano(ArrayList<Ficha> fichasEnMano) {
-        this.fichasEnMano = fichasEnMano;
+    public void setFichasEnMano() {
+        this.fichasEnMano = new Soporte();
     }
 
     public boolean isGanador() {
@@ -40,24 +34,25 @@ public class Jugador {
         this.ganador = ganador;
     }
 
-    public boolean isMiTurno() {
-        return MiTurno;
+    public boolean isPuedoempezar() {
+        return puedoempezar;
     }
 
-    public void setMiTurno(boolean miTurno) {
-        MiTurno = miTurno;
+    public void setPuedoempezar(boolean miTurno) {
+        puedoempezar = miTurno;
     }
 
-    public int cantFichas(){
-        return fichasEnMano.size();
-    }
+    public int cantFichas(){return fichasEnMano.cantfichas;}
+
+    public Soporte Soporte (){return fichasEnMano;}
+
 
     public void agregarFicha(Ficha ficha) {
-        fichasEnMano.add(ficha);
+        fichasEnMano.ingresarficha(ficha);
     }
 
     public void jugarFicha(Ficha ficha) {
-        fichasEnMano.remove(ficha);
+        fichasEnMano.usarficha(ficha);
     }
 
 }
