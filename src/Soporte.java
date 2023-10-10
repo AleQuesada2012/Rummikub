@@ -6,6 +6,13 @@ public class Soporte {
 
     int cantfichas;
 
+    public Soporte() {
+        this.fichas = new Vector<>();
+    }
+
+    public Vector<Ficha> getFichas(){
+        return fichas;
+    }
 
     public int getCantfichas() {
         return cantfichas;
@@ -15,9 +22,21 @@ public class Soporte {
         this.cantfichas = cantfichas;
     }
 
-    public void getFichas() {
-        for(Ficha ficha:fichas){
-            ficha.getficha();
+    public int getsumadefichas(){
+        int cont = 0;
+        for( Ficha ficha : fichas){
+            cont+=ficha.getNum();
         }
+        return cont;
+    }
+
+    public void ingresarficha(Ficha ficha){
+        fichas.add(ficha);
+        cantfichas++;
+    }
+
+    public void usarficha(Ficha ficha){
+        fichas.remove(ficha);
+        cantfichas--;
     }
 }
