@@ -14,6 +14,10 @@ public class Soporte {
         return fichas;
     }
 
+    public Ficha getficha(int x){
+        return fichas.get(x);
+    }
+
     public int getCantfichas() {
         return cantfichas;
     }
@@ -40,3 +44,4 @@ public class Soporte {
         cantfichas--;
     }
 }
+
