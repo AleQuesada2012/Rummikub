@@ -1,6 +1,11 @@
 import java.util.Vector;
 
 public class Juego {
+
+    private Mesa Tablero;
+
+
+    private Mesa temporalmesa;
     private Vector<Jugador>jugadores;
 
     private Pila fichas;
@@ -28,20 +33,31 @@ public class Juego {
         return indicedeprimerjugador;
     }
 
-    public boolean hayganador(){
+    public void sumarpuntos(){
         int cont = 0;
+        Jugador ganador = null;
         for(Jugador jugador : jugadores){
             if(jugador.getFichasEnMano().getsumadefichas()==0){
                 jugador.setGanador(true);
-                return true;
+                ganador = jugador;
+
             }
             else {
+                jugador.setPuntos(-(jugador.getFichasEnMano().getsumadefichas()));
+                cont+=jugador.getFichasEnMano().getsumadefichas();
 
             }
         }
-        return false;
+        if(ganador!=null){
+            ganador.setPuntos(cont);
+        }
+
+
     }
 
 
 
+
+
 }
+
