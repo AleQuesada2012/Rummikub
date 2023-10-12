@@ -22,9 +22,9 @@ public class Mesa {
 
     }
     public void copiarmesa(Mesa Mesaoriginal) {
-        for (int row = 0; row < matrizFichas.length; row++) {
-            for (int col = 0; col < matrizFichas[row].length; col++) {
-                matrizFichas[row][col] = Mesaoriginal.matrizFichas[row][col];
+        for (int fila = 0; fila< matrizFichas.length; fila++) {
+            for (int col = 0; col < matrizFichas[fila].length; col++) {
+                matrizFichas[fila][col] = Mesaoriginal.matrizFichas[fila][col];
             }
         }
         espaciolleno = Mesaoriginal.espaciolleno;
