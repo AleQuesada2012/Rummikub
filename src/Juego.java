@@ -17,7 +17,7 @@ public class Juego {
         for (int i = 0; i < jugadores.size(); i++) {
             Jugador jugador = jugadores.get(i);
             jugador.agregarFicha(fichas.agarrarficha());
-            for (Ficha ficha : jugador.Soporte().getFichas()) {
+            for (Ficha ficha : jugador.getFichasEnMano().getFichas()) {
                 if (ficha.getNum() > maxficha) {
                     maxficha= ficha.getNum();
                     indicedeprimerjugador= i;
@@ -31,7 +31,7 @@ public class Juego {
     public boolean hayganador(){
         int cont = 0;
         for(Jugador jugador : jugadores){
-            if(jugador.Soporte().getsumadefichas()==0){
+            if(jugador.getFichasEnMano().getsumadefichas()==0){
                 jugador.setGanador(true);
                 return true;
             }
