@@ -1,30 +1,47 @@
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Vector;
 
 public class Main {
     public static void main(String[] args) {
-        Ficha ficha1 = new Ficha(1, "rojo");
-        Ficha ficha2 = new Ficha(1, "azul");
+        Pila pila = new Pila();
+        Vector<Ficha> tiles = pila.getStack();
 
-        Ficha comodin = new Ficha(1, "negro");
+        // Sort the tiles by color and number
+        Collections.sort(tiles, new Comparator<Ficha>() {
+            @Override
+            public int compare(Ficha tile1, Ficha tile2) {
+                int colorComparison = tile1.getColor().compareTo(tile2.getColor());
+                if (colorComparison == 0) {
+                    return Integer.compare(tile1.getNum(), tile2.getNum());
+                }
+                return colorComparison;
+            }
+        });
 
-        Ficha ficha3 = new Ficha(0,"comodin");
+        // Display the sorted tiles
+        for (int i = 0; i < tiles.size(); i++) {
+            Ficha ficha = tiles.get(i);
+            System.out.println("Tile " + i + ": " + ficha.getNum() + " " + ficha.getColor());
+        }
+        Ficha grabbedTile = pila.agarrarficha();
+
+        if (grabbedTile != null) {
+            System.out.println("Grabbed Tile: " + grabbedTile.getNum() + " " + grabbedTile.getColor());
 
 
-        Vector<Ficha> prueba = new Vector<>();
+            if (!tiles.contains(grabbedTile)) {
+                System.out.println("Grabbed tile has been successfully removed from the Pila.");
+            } else {
+                System.out.println("Error: Grabbed tile is still in the Pila.");
+            }
+        } else {
+            System.out.println("No tiles left to grab.");
 
 
-        prueba.add(ficha1);
-        prueba.add(ficha2);
-        prueba.add(comodin);
-        prueba.add(ficha3);
-
-        Jugada jugada = new Jugada(prueba);
-
-        System.out.println(jugada.getSizeJugada());
-        System.out.println(jugada.retirarFicha(3));
-
-
-
+        }
     }
 
 }
+
