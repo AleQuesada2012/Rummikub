@@ -12,37 +12,72 @@ public class Jugada {
         jugada = lista;
     }
 
-    public boolean escaleravaldida() {
-        if(this.jugada.size()>=3) {
-            for (int i = 0; i < this.jugada.size() - 1; i++) {
-                Ficha ficha1 = this.jugada.get(i);
-                Ficha ficha2 = this.jugada.get(i + 1);
+    public boolean escaleravalida() {
+        int escalera = jugada.size();
+        if (escalera < 3) {
+            return false;
+        }
+        else {
+            Vector<String>color = new Vector<>();
+            color.add(this.getfichapos(0).getColor().equals("comodin") ? this.getfichapos(1).getColor() : this.getfichapos(0).getColor());
+            color.add("comodin");
 
-                if (ficha2.getNum() > ficha1.getNum() + 1 || !ficha2.getColor().equals(ficha1.getColor())) {
+            int cont = (this.getfichapos(0).getColor().equals("comodin")) ? this.getfichapos(1).getNum() : this.getfichapos(0).getNum();
+
+            for (int i = 0; i < escalera-1; i++) {
+                Ficha currentTile = this.jugada.get(i);
+                Ficha siguiente = this.jugada.get(i+1);
+
+
+                if("comodin".equals(currentTile.getColor())){
+                    if(i == 0){
+                        continue;
+                    }
+                }
+
+                if("comodin".equals(siguiente.getColor())) {
+                    cont++;
+                    continue;
+                }
+
+                if (cont +1 != siguiente.getNum() || (!color.contains(currentTile.getColor()) && !color.contains(siguiente.getColor()))) {
                     return false;
+                }
+                cont++;
+            }
+        }
+        return true;
+    }
+
+    public boolean serievalida() {
+        int serie = this.jugada.size();
+        if (serie < 3) {
+            return false;
+        } else {
+            Vector<String>color = new Vector<>();
+            color.add(this.getfichapos(0).getColor().equals("comodin") ? this.getfichapos(1).getColor() : this.getfichapos(0).getColor());
+            color.add("comodin");
+            for (int i = 0; i < serie-1; i++) {
+                Ficha currentTile = this.jugada.get(i);
+                Ficha siguiente = this.jugada.get(i+1);
+                if ("comodin".equals(currentTile.getColor())) {
+                    continue;
+                }
+                if (currentTile.getNum() != siguiente.getNum() || (color.contains(currentTile.getColor()) && color.contains(siguiente.getColor()))) {
+                    return false;
+                }
+                else {
+                    if(!siguiente.getColor().equals("comodin")) color.add(siguiente.getColor());
                 }
             }
             return true;
         }
-        return false;
-    }
-    public boolean secuenciavalida() {
-        if (this.jugada.size() >= 3) {
-            for (int i = 0; i < this.jugada.size(); i++) {
-                Ficha ficha1 = this.jugada.get(i);
-                Ficha ficha2 = this.jugada.get(i + 1);
 
-                if (ficha2.getNum() != ficha1.getNum() && ficha2.getColor().equals(ficha1.getColor())) return false;
-
-            }
-            return true;
-        }
-        return false;
     }
 
     public int valorjugada(){
         int cont = 0;
-        if(this.escaleravaldida() && this.secuenciavalida()){
+        if(this.escaleravalida() && this.serievalida()){
             for(int i=0;i<this.jugada.size();i++){
                 Ficha ficha = this.jugada.get(i);
                 cont+=ficha.getNum();
@@ -51,11 +86,26 @@ public class Jugada {
         }
         return cont;
     }
+
+    public Ficha retirarficha(Jugada jugada,int x){
+        Ficha ficha = jugada.getfichapos(x);
+        return ficha;
+    }
+
+    public Vector<Ficha> getJugada() {
+        return jugada;
+    }
+
     public Ficha getfichapos(int x){
         if(this.jugada.size()<x){
-           return this.jugada.get(x);
+            return this.jugada.get(x);
         }
         return null;
     }
-}
 
+    public int getsizejugada(){
+        return this.jugada.size();
+    }
+
+
+}
