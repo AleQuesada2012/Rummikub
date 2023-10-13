@@ -1,47 +1,85 @@
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.Scanner;
 import java.util.Vector;
 
 public class Main {
     public static void main(String[] args) {
-        Pila pila = new Pila();
-        Vector<Ficha> tiles = pila.getStack();
 
-        // Sort the tiles by color and number
-        Collections.sort(tiles, new Comparator<Ficha>() {
-            @Override
-            public int compare(Ficha tile1, Ficha tile2) {
-                int colorComparison = tile1.getColor().compareTo(tile2.getColor());
-                if (colorComparison == 0) {
-                    return Integer.compare(tile1.getNum(), tile2.getNum());
+        Juego juego = new Juego();
+
+        // Create the first player
+        Jugador jugador1 = new Jugador();
+        jugador1.setNombre("Bocachula");
+        jugador1.setFichasEnMano();
+        juego.agregarjugador(jugador1);
+
+        // Create the second player
+        Jugador jugador2 = new Jugador();
+        jugador2.setNombre("EDDY");
+        jugador2.setFichasEnMano();
+        juego.agregarjugador(jugador2);
+
+        int primerJugadorIndex = juego.determinarOrden();
+        Jugador primerJugador = juego.getJugadores().get(primerJugadorIndex);
+        juego.agarrarfichas();
+
+        Scanner scanner = new Scanner(System.in);
+        boolean gameOver = false;
+
+        while (!gameOver) {
+            Jugador currentPlayer = primerJugador;
+            System.out.println(currentPlayer.getNombre() + ", do you want to make a move? (yes/no)");
+            String input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("yes")) {
+                // Display the user's tiles
+                System.out.println("Your Tiles:");
+                for (int i = 0; i < primerJugador.getFichasEnMano().getCantfichas(); i++) {
+                    Ficha ficha = primerJugador.getFichasEnMano().getficha(i);
+                    System.out.println(i + ": " + ficha.getNum() + " " + ficha.getColor());
                 }
-                return colorComparison;
+
+                System.out.println("Enter the index of the tile you want to play:");
+                int tileIndex;
+                try {
+                    tileIndex = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a valid tile index.");
+                    continue;
+                }
+
+                if (tileIndex < 0 || tileIndex >= primerJugador.getFichasEnMano().getCantfichas()) {
+                    System.out.println("Invalid tile index. Please enter a valid tile index.");
+                    continue;
+                }
+
+                // Ask the user for matrix indices
+                System.out.println("Enter the row (x) and column (y) indices to place the tile (e.g., 0 1):");
+                String matrixIndicesInput = scanner.nextLine();
+                String[] matrixIndicesStr = matrixIndicesInput.split(" ");
+
+                if (matrixIndicesStr.length != 2) {
+                    System.out.println("Invalid input. Please enter valid row and column indices.");
+                    continue;
+                }
+
+                int rowIndex = Integer.parseInt(matrixIndicesStr[0]);
+                int colIndex = Integer.parseInt(matrixIndicesStr[1]);
+
+                // Get the selected tile from the user's hand
+                Ficha selectedTile = primerJugador.getFichasEnMano().getficha(tileIndex);
+
+                // Use the selected tile and matrix indices to update the table (matrix)
+                juego.getTablero().ingresarFicha(selectedTile, rowIndex, colIndex);
+
+                // Display the updated game table
+                System.out.println("Updated Game Table:");
+                juego.getTablero().imprimirMesa();
+
+                // Handle the user's tile selection and the play
+                // ...
             }
-        });
-
-        // Display the sorted tiles
-        for (int i = 0; i < tiles.size(); i++) {
-            Ficha ficha = tiles.get(i);
-            System.out.println("Tile " + i + ": " + ficha.getNum() + " " + ficha.getColor());
         }
-        Ficha grabbedTile = pila.agarrarficha();
 
-        if (grabbedTile != null) {
-            System.out.println("Grabbed Tile: " + grabbedTile.getNum() + " " + grabbedTile.getColor());
-
-
-            if (!tiles.contains(grabbedTile)) {
-                System.out.println("Grabbed tile has been successfully removed from the Pila.");
-            } else {
-                System.out.println("Error: Grabbed tile is still in the Pila.");
-            }
-        } else {
-            System.out.println("No tiles left to grab.");
-
-
-        }
     }
-
 }
 
