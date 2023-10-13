@@ -54,27 +54,26 @@ public class Jugada {
         if (serie < 3) {
             return false;
         } else {
-            Vector<String>color = new Vector<>();
-            color.add(this.getfichapos(0).getColor().equals("comodin") ? this.getfichapos(1).getColor() : this.getfichapos(0).getColor());
-            color.add("comodin");
-            for (int i = 0; i < serie-1; i++) {
+            Vector<String> color = new Vector<>();
+            color.add(this.getfichapos(0).getColor());
+            int num = (this.getfichapos(0).getColor().equals("comodin")) ? this.getfichapos(1).getNum() : this.getfichapos(0).getNum();
+            for (int i = 0; i < serie; i++) {
                 Ficha currentTile = this.jugada.get(i);
-                Ficha siguiente = this.jugada.get(i+1);
+
                 if ("comodin".equals(currentTile.getColor())) {
                     continue;
                 }
-                if (currentTile.getNum() != siguiente.getNum() || (color.contains(currentTile.getColor()) && color.contains(siguiente.getColor()))) {
+
+                if (num != currentTile.getNum() || (color.contains(currentTile.getColor()))) {
                     return false;
+                } else {
+                    color.add(currentTile.getColor());
                 }
-                else {
-                    if(!siguiente.getColor().equals("comodin")) color.add(siguiente.getColor());
-                }
+
             }
             return true;
         }
-
     }
-
     public int valorjugada(){
         int cont = 0;
         if(this.escaleravalida() && this.serievalida()){
@@ -109,3 +108,4 @@ public class Jugada {
 
 
 }
+
