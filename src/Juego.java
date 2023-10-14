@@ -19,6 +19,10 @@ public class Juego {
         this.jugadores = jugadores;
     }
 
+
+
+
+
     public void agregarjugador(Jugador jugador){
         jugadores.add(jugador);
     }
@@ -70,6 +74,15 @@ public class Juego {
 
     }
 
+    public void retirarFicha(int x, int y){
+        Ficha temp = Tablero.getMatrizFichas()[x][y];
+        Tablero.getMatrizFichas()[x][y] = null;
+
+    }
+
+    public Mesa getTemporalmesa() {
+        return temporalmesa;
+    }
 
     public void actualizarMesa(){
         if(temporalmesa.matrizValida()){
@@ -89,5 +102,5 @@ public class Juego {
     public Vector<Jugador> getJugadores() {
         return this.jugadores;
     }
-}
 
+}
