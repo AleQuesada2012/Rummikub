@@ -11,6 +11,9 @@ public class Juego {
     private Vector<Jugador> jugadores;
 
 
+
+
+
     public Juego() {
         Tablero = new Mesa();
         temporalmesa = new Mesa(1);

@@ -1,3 +1,5 @@
+package src;
+
 import java.util.Vector;
 
 public class Mesa {
@@ -20,8 +22,23 @@ public class Mesa {
 
 
 
-    public void ingresarFicha(Ficha ficha, int x, int y) {
-        matrizFichas[x][y] = ficha;
+    public void ingresarFicha(Ficha ficha, int x, int y, Jugador jugador) {
+        if (this.getMatrizFichas()[x][y] == null) {
+            this.getMatrizFichas()[x][y] = ficha;
+            jugador.getFichasEnMano().usarficha(ficha);
+        }
+    }
+
+    public void reacomodarFicha(int x, int y, int v, int j) {
+        Ficha ficha = this.matrizFichas[x][y];
+        this.matrizFichas[x][y] = null;
+
+        if (this.matrizFichas[v][j] != null) {
+            System.out.println("Esta posicion ya es ocupada.");
+            return;
+        }
+
+        this.matrizFichas[v][j] = ficha;
     }
 
     public boolean matrizValida(){

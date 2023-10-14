@@ -1,3 +1,5 @@
+package src;
+
 public class Ficha {
     private int num;
 

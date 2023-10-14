@@ -1,3 +1,5 @@
+package src;
+
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -139,7 +141,7 @@ public class Main {
                     }
 
                     // Perform the tile movement
-                    juego.getTemporalmesa().reacomododar(fromRowIndex, fromColIndex, toRowIndex, toColIndex);
+                    juego.getTemporalmesa().reacomodarFicha(fromRowIndex, fromColIndex, toRowIndex, toColIndex);
 
                     // Display the updated game table
                     System.out.println("Updated Game Table:");
@@ -187,7 +189,7 @@ public class Main {
                 }
                 else if (moveTypeInput.equals("4")) {
                 // Code for grabbing a tile from the bunch and ending the turn
-                Ficha grabbedTile = juego.getTablero().agarrarpila();; // Assuming agarrarpila() returns a tile from the bunch
+                Ficha grabbedTile = juego.getTablero().agarrarpila();// Assuming agarrarpila() returns a tile from the bunch
                 if (grabbedTile != null) {
                     // The player successfully grabbed a tile
                     System.out.println(currentPlayer.getNombre() + " grabbed a tile from the bunch.");
