@@ -39,13 +39,11 @@ public class Main {
 
             if (input.equalsIgnoreCase("yes")) {
 
+                Vector<Ficha>fichasJugador = juego.copiarFichasEnMano(currentPlayer);
 
-
-
-                // Display the user's tiles
                 System.out.println("Your Tiles:");
-                for (int i = 0; i < primerJugador.getFichasEnMano().getCantfichas(); i++) {
-                    Ficha ficha = primerJugador.getFichasEnMano().getficha(i);
+                for (int i = 0; i < currentPlayer.getFichasEnMano().getCantfichas(); i++) {
+                    Ficha ficha = currentPlayer.getFichasEnMano().getficha(i);
                     System.out.println(i + ": " + ficha.getNum() + " " + ficha.getColor());
                 }
                 // Display the user's tiles
@@ -167,14 +165,16 @@ public class Main {
                         // The table is not valid, print temporalmesa and give the same three options
                         System.out.println("Temporary Table is not valid. Please rearrange your tiles.");
 
-                        // Display the temporary table
+                        currentPlayer.getFichasEnMano().setFichas(fichasJugador);
+
+                        juego.getTemporalmesa().copiarMesa(juego.getTablero());
                         System.out.println("Temporary Table:");
                         juego.getTemporalmesa().imprimirMesa();
 
                         // Display the user's tiles
                         System.out.println("Your Tiles:");
-                        for (int i = 0; i < primerJugador.getFichasEnMano().getCantfichas(); i++) {
-                            Ficha ficha = primerJugador.getFichasEnMano().getficha(i);
+                        for (int i = 0; i < currentPlayer.getFichasEnMano().getCantfichas(); i++) {
+                            Ficha ficha = currentPlayer.getFichasEnMano().getficha(i);
                             System.out.println(i + ": " + ficha.getNum() + " " + ficha.getColor());
                         }
 
@@ -183,27 +183,53 @@ public class Main {
                         System.out.println("1. Play a tile on the table");
                         System.out.println("2. Move a tile on the table");
                         System.out.println("3. Finish your turn");
+                        System.out.println("4. grab a tile from the bunch");
                         moveTypeInput = scanner.nextLine();
                     }
                     
                 }
                 else if (moveTypeInput.equals("4")) {
+                    if(juego.getTemporalmesa().matrizValida()){
                 // Code for grabbing a tile from the bunch and ending the turn
                 Ficha grabbedTile = juego.getTablero().agarrarpila();// Assuming agarrarpila() returns a tile from the bunch
                 if (grabbedTile != null) {
                     // The player successfully grabbed a tile
                     System.out.println(currentPlayer.getNombre() + " grabbed a tile from the bunch.");
                     // Add the grabbed tile to the player's hand
-                    primerJugador.getFichasEnMano().ingresarficha(grabbedTile);
+                    currentPlayer.getFichasEnMano().ingresarficha(grabbedTile);
                     // End the player's turn
                     System.out.println("Turn finished.");
                     // Proceed to the next player
                     int currentPlayerIndex = (primerJugadorIndex + 1) % juego.getJugadores().size();
                     primerJugadorIndex = currentPlayerIndex;
                     primerJugador = juego.getJugadores().get(currentPlayerIndex);
-                } else {
+                }
+                }
+                else {
                     // The bunch is empty or the player cannot grab more tiles
-                    System.out.println("The bunch is empty or you cannot grab more tiles.");
+                        System.out.println("Temporary Table is not valid. Please rearrange your tiles.");
+
+                        currentPlayer.getFichasEnMano().setFichas(fichasJugador);
+
+                        juego.getTemporalmesa().copiarMesa(juego.getTablero());
+
+                        System.out.println("Temporary Table:");
+                        juego.getTemporalmesa().imprimirMesa();
+
+                        // Display the user's tiles
+                        System.out.println("Your Tiles:");
+                        for (int i = 0; i < currentPlayer.getFichasEnMano().getCantfichas(); i++) {
+                            Ficha ficha = currentPlayer.getFichasEnMano().getficha(i);
+                            System.out.println(i + ": " + ficha.getNum() + " " + ficha.getColor());
+                        }
+
+                        // Ask the user for the type of move
+                        System.out.println("Choose your move:");
+                        System.out.println("1. Play a tile on the table");
+                        System.out.println("2. Move a tile on the table");
+                        System.out.println("3. Finish your turn");
+                        System.out.println("4. grab a tile from the bunch");
+                        moveTypeInput = scanner.nextLine();
                 }
 
             }

@@ -10,6 +10,9 @@ public class Soporte {
     public Soporte() {
         this.fichas = new Vector<>();
     }
+    public Soporte(Vector<Ficha>fichas1){
+        this.fichas = fichas1;
+    }
 
     public Vector<Ficha> getFichas(){
         return fichas;
@@ -43,6 +46,10 @@ public class Soporte {
     public void usarficha(Ficha ficha){
         fichas.remove(ficha);
         cantfichas--;
+    }
+
+    public void setFichas(Vector<Ficha> fichas) {
+        this.fichas = fichas;
     }
 }
 

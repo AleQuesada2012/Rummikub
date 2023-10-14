@@ -79,6 +79,17 @@ public class Juego {
 
     }
 
+    public Vector<Ficha> copiarFichasEnMano(Jugador jugador) {
+        Vector<Ficha> copiedTiles = new Vector<>();
+
+        for (Ficha ficha : jugador.getFichasEnMano().getFichas()) {
+            copiedTiles.add(ficha); // Add the tile directly to the vector
+        }
+
+        return copiedTiles;
+    }
+
+
     public void retirarFicha(int x, int y){
         Ficha temp = Tablero.getMatrizFichas()[x][y];
         Tablero.getMatrizFichas()[x][y] = null;

@@ -20,7 +20,9 @@ public class Mesa {
 
 
 
+    public void reintegrar(){
 
+    }
 
     public void ingresarFicha(Ficha ficha, int x, int y, Jugador jugador) {
         if (this.getMatrizFichas()[x][y] == null) {
@@ -68,6 +70,12 @@ public class Mesa {
 
         }
         return esvalida;
+    }
+
+
+
+    public void recogerfichas(){
+
     }
 
     public boolean estaVacia(){
