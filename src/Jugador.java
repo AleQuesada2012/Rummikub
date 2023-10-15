@@ -49,7 +49,7 @@ public class Jugador {
         puedoempezar = miTurno;
     }
 
-    public int cantFichas(){return fichasEnMano.cantfichas;}
+    public int cantFichas(){return fichasEnMano.getCantfichas();}
     
     public Ficha escogerficha(int x){
         return fichasEnMano.getficha(x);
@@ -58,13 +58,17 @@ public class Jugador {
         Vector<Ficha> seleccionadas = new Vector<>();
 
         for (int indice : indices) {
-            if (indice >= 0 && indice < fichasEnMano.cantfichas) {
+            if (indice >= 0 && indice < fichasEnMano.getCantfichas()) {
                 seleccionadas.add(fichasEnMano.getficha(indice));
             }
         }
 
         return new  Jugada(seleccionadas);
     }
+    public void setFichasEnMano(Soporte nuevoSoporte) {
+        this.fichasEnMano = nuevoSoporte;
+    }
+
 
     public void agregarFicha(Ficha ficha) {
         fichasEnMano.ingresarficha(ficha);

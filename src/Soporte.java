@@ -5,7 +5,7 @@ public class Soporte {
 
     private  Vector<Ficha>fichas;
 
-    int cantfichas;
+    private  int cantfichas;
 
     public Soporte() {
         this.fichas = new Vector<>();
@@ -48,8 +48,23 @@ public class Soporte {
         cantfichas--;
     }
 
-    public void setFichas(Vector<Ficha> fichas) {
-        this.fichas = fichas;
+    public void setFichas(Vector<Ficha> newTiles) {
+        this.fichas.clear(); // Clear the current tiles
+        this.fichas.addAll(newTiles); // Add the copied tiles
     }
+
+    public void copiarsoporte(Soporte source) {
+        fichas.clear();
+        for (Ficha ficha : source.getFichas()) {
+            fichas.add(ficha);
+        }
+    }
+
+
+
+
+
+
+
 }
 

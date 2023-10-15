@@ -90,6 +90,28 @@ public class Mesa {
         return true;
     }
 
+    public void sonpartede() {
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                if(this.matrizFichas[i][j]!=null){
+                    this.matrizFichas[i][j].setEsta(true);
+                }
+
+            }
+        }
+    }
+
+    public void restaurarFichas(Jugador jugador){
+        for (int i=0;i<15;i++){
+            for(int j=0;j<15;j++) {
+                if (this.matrizFichas[i][j] != null) {
+                    if (!this.matrizFichas[i][j].isEsta()) {
+                        jugador.getFichasEnMano().ingresarficha(this.matrizFichas[i][j]);
+                    }
+                }
+            }
+        }
+    }
 
 
     public void copiarMesa(Mesa Mesaoriginal) {

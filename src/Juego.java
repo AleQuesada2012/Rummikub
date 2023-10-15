@@ -83,11 +83,13 @@ public class Juego {
         Vector<Ficha> copiedTiles = new Vector<>();
 
         for (Ficha ficha : jugador.getFichasEnMano().getFichas()) {
-            copiedTiles.add(ficha); // Add the tile directly to the vector
+            Ficha copiedFicha = new Ficha(ficha.getNum(), ficha.getColor());
+            copiedTiles.add(copiedFicha);
         }
 
         return copiedTiles;
     }
+
 
 
     public void retirarFicha(int x, int y){

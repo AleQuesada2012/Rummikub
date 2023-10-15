@@ -5,14 +5,23 @@ public class Ficha {
 
     private String color;
 
-
+    private boolean esta;
 
     public void  getficha(){
         System.out.println(getNum());
         System.out.println(getColor());
     }
 
-    public Ficha(int num,String color){
+
+    public boolean isEsta() {
+        return esta;
+    }
+
+    public void setEsta(boolean esta) {
+        this.esta = esta;
+    }
+
+    public Ficha(int num, String color){
         setColor(color);
         setNum(num);
     }

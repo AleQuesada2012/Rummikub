@@ -39,7 +39,6 @@ public class Main {
 
             if (input.equalsIgnoreCase("yes")) {
 
-                Vector<Ficha>fichasJugador = juego.copiarFichasEnMano(currentPlayer);
 
                 System.out.println("Your Tiles:");
                 for (int i = 0; i < currentPlayer.getFichasEnMano().getCantfichas(); i++) {
@@ -152,8 +151,10 @@ public class Main {
                     System.out.println("Turn finished.");
 
                     if (juego.getTemporalmesa().matrizValida()) {
+
                         // The table is valid, end the player's turn and proceed to the next player
                         juego.getTablero().copiarMesa(juego.getTemporalmesa());
+                        juego.getTablero().sonpartede();
                         int currentPlayerIndex = (primerJugadorIndex + 1) % juego.getJugadores().size();
                         primerJugadorIndex = currentPlayerIndex;
                         primerJugador = juego.getJugadores().get(currentPlayerIndex);
@@ -165,9 +166,11 @@ public class Main {
                         // The table is not valid, print temporalmesa and give the same three options
                         System.out.println("Temporary Table is not valid. Please rearrange your tiles.");
 
-                        currentPlayer.getFichasEnMano().setFichas(fichasJugador);
+                        juego.getTemporalmesa().restaurarFichas(currentPlayer);
 
                         juego.getTemporalmesa().copiarMesa(juego.getTablero());
+
+
                         System.out.println("Temporary Table:");
                         juego.getTemporalmesa().imprimirMesa();
 
@@ -209,8 +212,7 @@ public class Main {
                     // The bunch is empty or the player cannot grab more tiles
                         System.out.println("Temporary Table is not valid. Please rearrange your tiles.");
 
-                        currentPlayer.getFichasEnMano().setFichas(fichasJugador);
-
+                        juego.getTemporalmesa().restaurarFichas(currentPlayer);
                         juego.getTemporalmesa().copiarMesa(juego.getTablero());
 
                         System.out.println("Temporary Table:");
