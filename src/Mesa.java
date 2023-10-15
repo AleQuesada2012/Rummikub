@@ -43,34 +43,87 @@ public class Mesa {
         this.matrizFichas[v][j] = ficha;
     }
 
-    public boolean matrizValida(){
-        if(estaVacia())return true;
 
-        boolean esvalida = false;
+
+
+    public boolean matrizValida() {
+        if (estaVacia()) return true;
+        if (todasValidas()) return true;
+        boolean esvalid = false;
+        Vector<Ficha> fichas = new Vector<>();
+
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                if (matrizFichas[i][j] != null) {
+                    fichas.add(matrizFichas[i][j]);
+                }
+                else if(!fichas.isEmpty()){
+                    Jugada posibleJugada = new Jugada(fichas);
+                    if (posibleJugada.serieValida() || posibleJugada.escaleraValida()) {
+                        esvalid = true;
+                    }
+                    else {
+                        return false;
+                    }
+                    fichas.clear();
+                }
+            }
+        }
+
+        return esvalid;
+    }
+
+
+
+
+
+
+    public boolean todasValidas(){
+        for(int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                if(this.matrizFichas[i][j]!=null && !this.matrizFichas[i][j].isEsta()){
+                    return false;
+                }
+
+            }
+        }
+        return true;
+
+    }
+
+
+
+
+    public boolean valordeJugada(){
+        int cont = 0;
         Vector<Ficha> fichas =  new Vector<>();
         for(int i = 0; i < 15; i++){
             for(int j = 0; j < 15; j++){
-                if(matrizFichas[i][j]!=null){
+                if(matrizFichas[i][j]!=null && !matrizFichas[i][j].isEsta()){
                     fichas.add(matrizFichas[i][j]);
                 }
                 if(matrizFichas[i][j] == null){
                     Jugada posibleJugada = new Jugada(fichas);
                     if(posibleJugada.serieValida() || posibleJugada.escaleraValida()){
-                        esvalida = true;
+                        cont = posibleJugada.valorJugada();
                         fichas.clear();
                     }
-                    else{
-                        return false;
-                    }
-
                 }
-
 
             }
 
+
         }
-        return esvalida;
+        if(cont>=30){
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
+
+
 
 
 

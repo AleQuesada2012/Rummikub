@@ -73,6 +73,7 @@ public class Jugador {
     public void agregarFicha(Ficha ficha) {
         fichasEnMano.ingresarficha(ficha);
     }
+
     }
 
 
