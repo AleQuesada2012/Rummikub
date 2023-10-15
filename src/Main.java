@@ -1,4 +1,4 @@
-/*package src;
+package src;
 
 import java.util.Scanner;
 import java.util.Vector;
@@ -159,7 +159,7 @@ public class Main {
 
 
                 else if (moveTypeInput.equals("3")) {
-                    if (juego.getTemporalmesa().valordejugada()) {
+                    if (juego.getTemporalmesa().valorDeJugada() && juego.getTemporalmesa().matrizValida()) {
                         currentPlayer.setPuedoempezar(true);
                     }
                     if (currentPlayer.isPuedoempezar()) {
